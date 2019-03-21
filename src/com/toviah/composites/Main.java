@@ -1,12 +1,14 @@
 package com.toviah.composites;
 
+import java.util.Arrays;
+
 public class Main {
 	public static void main(String[] args) throws CloneNotSupportedException {
-		Composite comp = new Composite();
+		CompositeUniD comp = new CompositeUniD();
 		comp.layupAngles = new double[] {0, 45, -45, 90};
 		
 		for (int i = 0; i < comp.layupAngles.length; i++) {
-			Lamina layer = comp.newLamina();
+			LaminaUniD layer = comp.newLamina();
 			layer.fiberVolume = 13;
 			layer.compositeVolume = 20;
 			layer.fiberVolumeFraction = .4;
@@ -21,6 +23,8 @@ public class Main {
 			layer.initialize();
 		}
 		comp.calculateComposite();
+		System.out.println("Layup Angles:");
+		System.out.println(Arrays.toString(comp.layupAngles));
 		comp.compositeStiffnessMatrix.print(5, 0);
 	}
 }

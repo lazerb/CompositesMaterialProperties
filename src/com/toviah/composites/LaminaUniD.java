@@ -2,7 +2,7 @@ package com.toviah.composites;
 
 import Jama.*;
 
-public class Lamina {
+public class LaminaUniD {
 //
 	double fiberTensileModulusL;
 	double fiberPoissonRatioL;
@@ -77,7 +77,7 @@ public class Lamina {
 		stiffnessMatrix = complianceMatrix.inverse();
 		
 		Matrix transformationMatrixInvTrans = transformationMatrix.inverse().transpose();
-		angleStiffnessMatrix = transformationMatrix.times(stiffnessMatrix).times(transformationMatrixInvTrans);
+		angleStiffnessMatrix = transformationMatrix.inverse().times(stiffnessMatrix).times(transformationMatrixInvTrans);
 		angleComplianceMatrix = angleStiffnessMatrix.inverse();
 		double [][] angleCompliance = angleComplianceMatrix.getArray();
 		angleCompTensileModulusX = 1 / angleCompliance[0][0];

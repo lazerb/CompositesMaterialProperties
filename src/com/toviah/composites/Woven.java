@@ -4,11 +4,21 @@ import java.util.ArrayList;
 
 import Jama.Matrix;
 
-public class Composite {
-	ArrayList<Lamina> layup = new ArrayList<Lamina>();
-	double[] layupAngles;
-	Lamina newLamina() {
-		Lamina layer = new Lamina();
+public class Woven {
+	ArrayList<LaminaUniD> layup = new ArrayList<LaminaUniD>();
+	double[] layupAngles = new double[] {0, 90};
+	
+	double areaWarp;
+	double areaFill;
+	
+	LaminaUniD Warp () {
+		LaminaUniD layer = new LaminaUniD();
+		layup.add(layer);
+		return layer;
+	}
+	
+	LaminaUniD Fill () {
+		LaminaUniD layer = new LaminaUniD();
 		layup.add(layer);
 		return layer;
 	}
@@ -19,8 +29,7 @@ public class Composite {
 	
 	void calculateComposite () {
 		compositeStiffnessMatrix = new Matrix(emptyMatrix);
-		
-		Lamina currentLamina = new Lamina();
+		LaminaUniD currentLamina = new LaminaUniD();
 		for (int i=0; i < layup.size(); i++) {
 			currentLamina = layup.get(i);
 			totalThickness += currentLamina.thickness;
@@ -28,7 +37,7 @@ public class Composite {
 		for (int i=0; i < layup.size(); i++) {
 			currentLamina = layup.get(i);
 			currentLamina.compositeVolumePercentage = currentLamina.thickness / totalThickness;
-			compositeStiffnessMatrix.plusEquals(currentLamina.stiffnessMatrix.times(currentLamina.compositeVolumePercentage));
+			compositeStiffnessMatrix.plusEquals(currentLamina.angleStiffnessMatrix.times(currentLamina.compositeVolumePercentage));
 		}
 	}
 }
