@@ -16,8 +16,7 @@ public class Main {
 			layer.matrixTensileModulusL = 3500;
 			layer.matrixShearModulusL = 1250;
 			layer.matrixPoissonRatioL = .33;
-			layer.angle = 0;
-			layer.angle = comp.layupAngles[i];
+			layer.angle = Math.toRadians(comp.layupAngles[i]);
 			layer.thickness = 1;
 			layer.initialize();
 		}

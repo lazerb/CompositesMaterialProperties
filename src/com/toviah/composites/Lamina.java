@@ -58,7 +58,7 @@ public class Lamina {
 		transformation[1][1] = Math.pow(Math.cos(angle), 2);
 		transformation[1][2] = -2 * Math.sin(angle) * Math.cos(angle);
 		transformation[2][0] = -1 * Math.sin(angle) * Math.cos(angle);
-		transformation[2][1] = -1 * Math.sin(angle) * Math.cos(angle);
+		transformation[2][1] = Math.sin(angle) * Math.cos(angle);
 		transformation[2][2] = Math.pow(Math.cos(angle), 2) - Math.pow(Math.sin(angle), 2);
 		Matrix transformationMatrix = new Matrix(transformation);
 		
@@ -76,7 +76,8 @@ public class Lamina {
 		
 		stiffnessMatrix = complianceMatrix.inverse();
 		
-		angleStiffnessMatrix = transformationMatrix.inverse().times(stiffnessMatrix).times(transformationMatrix.transpose().inverse());
+		Matrix transformationMatrixInvTrans = transformationMatrix.inverse().transpose();
+		angleStiffnessMatrix = transformationMatrix.times(stiffnessMatrix).times(transformationMatrixInvTrans);
 		angleComplianceMatrix = angleStiffnessMatrix.inverse();
 		double [][] angleCompliance = angleComplianceMatrix.getArray();
 		angleCompTensileModulusX = 1 / angleCompliance[0][0];

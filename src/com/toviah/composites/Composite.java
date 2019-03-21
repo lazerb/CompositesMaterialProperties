@@ -18,11 +18,6 @@ public class Composite {
 	Matrix compositeStiffnessMatrix;
 	
 	void calculateComposite () {
-		/*for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
-				emptyMatrix[i][j] = 0;
-			}
-		}*/
 		compositeStiffnessMatrix = new Matrix(emptyMatrix);
 		
 		Lamina currentLamina = new Lamina();
